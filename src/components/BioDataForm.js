@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { calculateBmr } from './AnalysisFxn';
+
 
 const Example = () => {
 
@@ -24,23 +26,71 @@ const Example = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         // Do something with the form data, like sending it to a server
+        const result = calculateBmr(formData.gender, formData.weight, formData.height, formData.age, formData.activityLevel);
+        setResponse(result);
         console.log(formData);
+      };
+
+      const clearForm=(e)=>{
+        
+        setFormData({
+          name: '',
+          age: '',
+          gender: '',
+          height: '',
+          weight: '',
+          activityLevel: ''
+        });
+        setResponse(null);
+        
+        
       };
 
 
   return (
-    <div className="container mt-5 w-50 ">
+    <div className="container mt-5 w-50 h-100">
       <div className="card border rounded shadow">
         {/* <div className="card-header text-white text-center " style={{backgroundColor:"#95aee9"}}>
           Bio Data
         </div> */}
         <div className="card-body">
         {response ? (
-            // Display the response if available
-            <div className="alert alert-success" role="alert">
-              {response.message} {/* Adjust this based on the structure of your response */}
-            </div>
-            ) : (
+  // Display the response if available
+  <div className="alert alert-success" role="alert">
+    <h4>Results: </h4> 
+    <p><strong>Name:</strong> {formData.name} <strong>Age: </strong>{formData.age}, {formData.gender}</p>
+    <p><strong>BMR:</strong> {response.bmr}</p>
+    <p><strong>BMI:</strong> {response.bmi}</p>
+    {/* <p>Category: {response.category}</p> */}
+    <h5>Suggestions:</h5>
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Food Group</th>
+          <th>Portion</th>
+          <th>Total Calories</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(response.foodPortions).map((groupName, index) => (
+          <tr key={index}>
+            <td>{groupName}</td>
+            <td>{response.foodPortions[groupName].portion}</td>
+            <td>{response.foodPortions[groupName].calories}</td>
+          </tr>
+        ))}
+        <tr>
+          <td colSpan="2"><strong>Total Calories</strong></td>
+          <td><strong>{response.caloriesQty}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    {/* Display other properties as needed */}
+    <button className="btn d-block mx-auto text-white " style={{backgroundColor:"#880808"}} onClick={clearForm}>
+          Clear
+    </button>
+  </div>
+) : (
         <form onSubmit={handleSubmit} className="p-4 rounded">
             <h3 className='text-center'>Analysis Form</h3>
         <div className="mb-3">
@@ -93,7 +143,7 @@ const Example = () => {
             className="form-control"
             id="height"
             name="height"
-            placeholder='Height'
+            placeholder='Height(m)'
             value={formData.height}
             onChange={handleChange}
             required
@@ -105,7 +155,7 @@ const Example = () => {
             className="form-control"
             id="weight"
             name="weight"
-            placeholder='Weight'
+            placeholder='Weight (kg)'
             value={formData.weight}
             onChange={handleChange}
             required
@@ -122,15 +172,18 @@ const Example = () => {
             required
           >
             <option value="">Select Activity Level</option>
-            <option value="Normal">Normal</option>
-            <option value="Extra">Extra</option>
-            <option value="Other">Other</option>
+            <option value="Sedentary">Sedentary (little or no exercise)</option>
+            <option value="Light">Lightly active (light exercise or sports 1-3 days a week)</option>
+            <option value="Moderate">Moderately active (moderate exercise or sports 3-5 days a week)</option>
+            <option value="Very">Very active (hard exercise or sports 6-7 days a week)</option>
+            <option value="Super">Super active (very hard exercise and physical job or 2x training)</option>
           </select>
         </div>
         
         <button type="submit" className="btn d-block mx-auto text-white " style={{backgroundColor:"#121f57"}}>
           Submit
         </button>
+        
       </form>
         )}
        
