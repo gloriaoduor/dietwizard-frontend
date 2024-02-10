@@ -20,10 +20,10 @@ function App() {
               <a className="nav-link text-white fonttype mx-4" href="/">HOME</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white fonttype mx-4" href="#">FEATURES</a>
+              <a className="nav-link text-white fonttype mx-4" href="/">FEATURES</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white fonttype mx-4" href="#">PRICING</a>
+              <a className="nav-link text-white fonttype mx-4" href="/">PRICING</a>
             </li>
           </ul>
         </div>
@@ -38,7 +38,7 @@ function App() {
             
           <div className="text-section">
             <h1 className="fonttype mb-1">DIET WIZARD</h1>
-            <img src={dietImg} alt="Your Image" className="w-25"/>
+            <img src={dietImg} alt="diet" className="w-25"/>
             <p className="body-font"><h5>Simplifies healthy eating by providing personalized guidance based<br/>
                on your unique needs, ensuring a balanced diet tailored to your goals.<br/>
                 Whether you want to maintain, gain, or lose weight, this app helps you <br/>
