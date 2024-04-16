@@ -57,11 +57,19 @@ const Example = () => {
         {response ? (
   // Display the response if available
   <div className="alert alert-success" role="alert">
-    <h4>Results: </h4> 
-    <p><strong>Name:</strong> {formData.name} <strong>Age: </strong>{formData.age}, {formData.gender}</p>
+    <h4>Results: </h4>
+    <div className="row">
+      <div className="col-6">
+      <p><strong>Name:</strong> {formData.name}, {formData.age}, {formData.gender.toUpperCase()}</p>
     <p><strong>BMR:</strong> {response.bmr}</p>
-    <p><strong>BMI:</strong> {response.bmi}</p>
-    {/* <p>Category: {response.category}</p> */}
+      </div> 
+      <div className="col-6">
+      <p><strong>BMI:</strong> {response.bmi}</p>
+    <p><strong>Category:</strong>{response.category}</p>
+      </div>
+      </div>
+    
+    
     <h5>Suggestions:</h5>
     <table className="table">
       <thead>

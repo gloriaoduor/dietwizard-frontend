@@ -33,6 +33,7 @@ export const calculateBmr = (sex, weight, height, age, activityLevel) => {
     
   
     bmi = (weight / (height * height)).toFixed(1);
+    bmr = bmr.toFixed(1);
   
     if (bmi < 18.5) {
       category = "Underweight";
@@ -47,6 +48,7 @@ export const calculateBmr = (sex, weight, height, age, activityLevel) => {
       category = "Obese";
       caloriesQty = bmr - 500;
     }
+    
 
     const foodGroups = [
       { name: "Sugar exchange", portions: [6, 7, 8, 9], calPerPortion: 20 },
@@ -75,7 +77,7 @@ export const calculateBmr = (sex, weight, height, age, activityLevel) => {
         }
       }
     }
-  
+    
     const result = {
         bmr,
         bmi ,
